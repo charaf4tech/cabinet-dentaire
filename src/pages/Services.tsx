@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useScrollAnimation } from '@/utils/animations';
 import { motion } from 'framer-motion';
-import { Tooth, Smile, Stethoscope, UserPlus, Baby, Heart, Clock, Microscope } from 'lucide-react';
+import { Activity, Smile, Stethoscope, UserPlus, Baby, Heart, Clock, Microscope } from 'lucide-react';
 
 const Services = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation(0.2);
@@ -20,7 +20,7 @@ const Services = () => {
   const services = {
     general: [
       { 
-        icon: Tooth, 
+        icon: Activity, 
         title: 'Dental Checkups & Cleanings', 
         description: 'Regular examinations and professional cleanings to maintain optimal oral health.', 
         price: '$80 - $150'
@@ -52,7 +52,7 @@ const Services = () => {
         price: '$300 - $650'
       },
       { 
-        icon: Tooth, 
+        icon: Activity, 
         title: 'Porcelain Veneers', 
         description: 'Custom-made shells to improve the appearance of front teeth.', 
         price: '$1,000 - $2,500 per tooth'
@@ -78,7 +78,7 @@ const Services = () => {
         price: '$3,000 - $5,000 per implant'
       },
       { 
-        icon: Tooth, 
+        icon: Activity, 
         title: 'Orthodontics', 
         description: 'Braces and clear aligners to straighten teeth and correct bite issues.', 
         price: '$3,500 - $8,000'
@@ -90,7 +90,7 @@ const Services = () => {
         price: '$500 - $4,000'
       },
       { 
-        icon: Tooth, 
+        icon: Activity, 
         title: 'Oral Surgery', 
         description: 'Extractions, wisdom teeth removal, and other surgical procedures.', 
         price: '$200 - $3,000'
@@ -104,7 +104,7 @@ const Services = () => {
         price: '$150 - $450'
       },
       { 
-        icon: Tooth, 
+        icon: Activity, 
         title: 'Broken Tooth Repair', 
         description: 'Quick solutions for chipped, cracked, or broken teeth.', 
         price: '$200 - $600'

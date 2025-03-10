@@ -1,7 +1,6 @@
-
 import Hero from '@/components/Hero';
 import { useScrollAnimation } from '@/utils/animations';
-import { ArrowRight, Tooth, Shield, Clock, Award, Star } from 'lucide-react';
+import { ArrowRight, Activity, Shield, Clock, Award, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Index = () => {
@@ -12,7 +11,7 @@ const Index = () => {
   
   const stats = [
     { label: 'Satisfied Patients', value: '5,000+', icon: Award },
-    { label: 'Experienced Dentists', value: '15+', icon: Tooth },
+    { label: 'Experienced Dentists', value: '15+', icon: Activity },
     { label: 'Years of Service', value: '25+', icon: Clock },
   ];
   
@@ -172,7 +171,7 @@ const Index = () => {
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
-                  <Tooth size={24} />
+                  <Activity size={24} />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
                 <p className="text-foreground/70">{service.description}</p>
