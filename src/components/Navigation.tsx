@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 const Navigation = () => {
@@ -21,7 +21,8 @@ const Navigation = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
-    { name: 'Projects', path: '/projects' },
+    { name: 'Services', path: '/services' },
+    { name: 'Doctors', path: '/doctors' },
     { name: 'Contact', path: '/contact' }
   ];
 
@@ -42,7 +43,8 @@ const Navigation = () => {
             className="text-2xl font-display font-medium tracking-tight"
             aria-label="Home"
           >
-            <span className="text-gradient">Creative.</span>
+            <span className="text-gradient">BrightSmile</span>
+            <span className="text-sm ml-1">Dental</span>
           </NavLink>
 
           {/* Desktop Navigation */}
@@ -61,6 +63,12 @@ const Navigation = () => {
                 {link.name}
               </NavLink>
             ))}
+            <a
+              href="/contact"
+              className="px-4 py-2 bg-primary text-white rounded-full text-sm font-medium transition-colors hover:bg-primary/90"
+            >
+              Book Now
+            </a>
             <ThemeToggle />
           </nav>
 
@@ -99,6 +107,13 @@ const Navigation = () => {
               {link.name}
             </NavLink>
           ))}
+          <a
+            href="/contact"
+            onClick={() => setIsMenuOpen(false)}
+            className="px-6 py-3 bg-primary text-white rounded-full text-lg font-medium transition-colors hover:bg-primary/90 mt-4"
+          >
+            Book Now
+          </a>
         </div>
       </div>
     </header>

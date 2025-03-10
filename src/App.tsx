@@ -9,7 +9,8 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import Index from "./pages/Index";
 import About from "./pages/About";
-import Projects from "./pages/Projects";
+import Services from "./pages/Services";
+import Doctors from "./pages/Doctors";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -37,7 +38,8 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/doctors" element={<Doctors />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
