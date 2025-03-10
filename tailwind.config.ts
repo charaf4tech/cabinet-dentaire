@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,7 +20,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
-				display: ['SF Pro Display', 'Inter', 'sans-serif'],
+				display: ['Playfair Display', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -56,6 +55,14 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				morocco: {
+					'terracotta': '#C4736B',
+					'sand': '#E7D7B2',
+					'teal': '#21888F',
+					'indigo': '#5B5DA8',
+					'ochre': '#D99D55',
+					'mint': '#9FD9C9',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -144,15 +151,17 @@ export default {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' }
 				},
-				'pulse-light': {
-					'0%, 100%': { 
-						opacity: '1',
-						transform: 'scale(1)'
-					},
-					'50%': { 
-						opacity: '0.95',
-						transform: 'scale(1.05)'
-					}
+				'float-slow': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-15px)' }
+				},
+				'spin-slow': {
+					'0%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(360deg)' }
+				},
+				'moroccan-shimmer': {
+					'0%': { backgroundPosition: '0% 0%' },
+					'100%': { backgroundPosition: '100% 100%' }
 				}
 			},
 			animation: {
@@ -165,7 +174,9 @@ export default {
 				'scale-in': 'scale-in 0.3s ease-out',
 				'scale-out': 'scale-out 0.3s ease-out',
 				'float': 'float 6s ease-in-out infinite',
-				'pulse-light': 'pulse-light 4s ease-in-out infinite',
+				'float-slow': 'float-slow 8s ease-in-out infinite',
+				'spin-slow': 'spin-slow 12s linear infinite',
+				'moroccan-shimmer': 'moroccan-shimmer 8s ease infinite alternate'
 			}
 		}
 	},
