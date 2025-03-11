@@ -1,7 +1,8 @@
 
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Tooth } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
 
 const Navigation = () => {
@@ -15,8 +16,24 @@ const Navigation = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
+    
+    // Clean up event listener
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu when navigation happens
+  useEffect(() => {
+    if (isMenuOpen) {
+      // Prevent scrolling when menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMenuOpen]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -42,8 +59,17 @@ const Navigation = () => {
             to="/" 
             className="text-2xl font-display font-medium tracking-tight"
             aria-label="Home"
+            onClick={() => setIsMenuOpen(false)}
           >
-            <span className="text-gradient">BrightSmile</span>
+            <motion.span 
+              className="text-gradient flex items-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Tooth className="mr-2 text-primary h-6 w-6" />
+              BrightSmile
+            </motion.span>
             <span className="text-sm ml-1">Dental</span>
           </NavLink>
 
@@ -63,59 +89,80 @@ const Navigation = () => {
                 {link.name}
               </NavLink>
             ))}
-            <a
+            <motion.a
               href="/contact"
               className="px-4 py-2 bg-primary text-white rounded-full text-sm font-medium transition-colors hover:bg-primary/90"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Book Now
-            </a>
+            </motion.a>
             <ThemeToggle />
           </nav>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-4 md:hidden">
             <ThemeToggle />
-            <button
+            <motion.button
               onClick={toggleMenu}
               className="p-2 rounded-full text-foreground hover:bg-muted transition-colors"
               aria-expanded={isMenuOpen}
               aria-label="Toggle menu"
+              whileTap={{ scale: 0.9 }}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div 
-        className={`md:hidden fixed inset-0 bg-background/95 backdrop-blur-lg transition-transform duration-300 ease-in-out z-40 ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="flex flex-col h-full justify-center items-center space-y-8 p-6">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              onClick={() => setIsMenuOpen(false)}
-              className={({ isActive }) => `
-                text-2xl font-medium transition-colors duration-200
-                ${isActive ? 'text-primary' : 'text-foreground/80 hover:text-primary'}
-              `}
-            >
-              {link.name}
-            </NavLink>
-          ))}
-          <a
-            href="/contact"
-            onClick={() => setIsMenuOpen(false)}
-            className="px-6 py-3 bg-primary text-white rounded-full text-lg font-medium transition-colors hover:bg-primary/90 mt-4"
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            className="md:hidden fixed inset-0 bg-background/95 backdrop-blur-lg z-40"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           >
-            Book Now
-          </a>
-        </div>
-      </div>
+            <div className="flex flex-col h-full justify-center items-center space-y-8 p-6">
+              {navLinks.map((link, index) => (
+                <motion.div
+                  key={link.path}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.1 }}
+                >
+                  <NavLink
+                    to={link.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={({ isActive }) => `
+                      text-2xl font-medium transition-colors duration-200
+                      ${isActive ? 'text-primary' : 'text-foreground/80 hover:text-primary'}
+                    `}
+                  >
+                    {link.name}
+                  </NavLink>
+                </motion.div>
+              ))}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navLinks.length * 0.1 + 0.2 }}
+              >
+                <a
+                  href="/contact"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="px-6 py-3 bg-primary text-white rounded-full text-lg font-medium transition-colors hover:bg-primary/90 mt-4 inline-block"
+                >
+                  Book Now
+                </a>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

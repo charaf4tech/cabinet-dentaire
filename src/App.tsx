@@ -17,6 +17,30 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    y: 20,
+  },
+  in: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: [0.22, 1, 0.36, 1],
+      when: "beforeChildren",
+    }
+  },
+  out: {
+    opacity: 0,
+    y: -20,
+    transition: {
+      duration: 0.3,
+      ease: [0.22, 1, 0.36, 1],
+    }
+  }
+};
+
 const PageTransition = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   
@@ -24,10 +48,10 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
     <AnimatePresence mode="wait">
       <motion.div
         key={location.pathname}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={pageVariants}
       >
         {children}
       </motion.div>
@@ -40,13 +64,16 @@ const AppContent = () => {
   
   // Smooth scroll behavior and scroll to top on route change
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }, [location.pathname]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navigation />
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         <PageTransition>
           <Routes>
             <Route path="/" element={<Index />} />

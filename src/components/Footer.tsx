@@ -1,5 +1,5 @@
 
-import { Phone, Mail, MapPin, Calendar, Smile, Shield, Star } from 'lucide-react';
+import { Phone, Mail, MapPin, Calendar, Smile, Shield, Star, Sparkles, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useHoverAnimation } from '@/utils/animations';
 
@@ -10,11 +10,11 @@ const Footer = () => {
   const { isHovered: isHovered3, hoverProps: hoverProps3 } = useHoverAnimation();
   
   return (
-    <footer className="border-t border-morocco-sand/30 bg-secondary/50 mt-auto relative overflow-hidden zellige-bg">
+    <footer className="border-t border-primary/30 bg-secondary/50 mt-auto relative overflow-hidden zellige-bg">
       {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-morocco-terracotta via-morocco-sand to-morocco-teal"></div>
-      <div className="absolute -top-8 left-1/4 w-16 h-16 rounded-full bg-morocco-terracotta/10 blur-xl"></div>
-      <div className="absolute -bottom-8 right-1/4 w-20 h-20 rounded-full bg-morocco-teal/10 blur-xl"></div>
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-primary/70 to-accent"></div>
+      <div className="absolute -top-8 left-1/4 w-16 h-16 rounded-full bg-primary/10 blur-xl"></div>
+      <div className="absolute -bottom-8 right-1/4 w-20 h-20 rounded-full bg-accent/10 blur-xl"></div>
       
       <div className="container mx-auto px-4 md:px-6 py-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -27,36 +27,47 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <Smile className="mr-2 text-morocco-terracotta" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-morocco-terracotta to-morocco-teal">
-                Moroccan Smile
+              <Smile className="mr-2 text-primary" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+                BrightSmile Dental
               </span>
             </motion.h3>
             <p className="text-foreground/70 max-w-xs">
-              Bringing the warmth and hospitality of Morocco to dental care. 
-              Exceptional service with a blend of modern techniques and traditional Moroccan hospitality.
+              Creating healthy, beautiful smiles with our expert dental care. 
+              We combine modern dental techniques with a compassionate approach.
             </p>
             
             <div className="mt-6 flex flex-col space-y-3">
-              <a href="tel:+2126123456" className="flex items-center text-foreground/70 hover:text-morocco-terracotta transition-colors">
-                <Phone size={16} className="mr-2 text-morocco-terracotta" />
-                <span>+212 612-345-678</span>
-              </a>
-              <a href="mailto:info@moroccansmile.com" className="flex items-center text-foreground/70 hover:text-morocco-terracotta transition-colors">
-                <Mail size={16} className="mr-2 text-morocco-terracotta" />
-                <span>info@moroccansmile.com</span>
-              </a>
-              <div className="flex items-center text-foreground/70">
-                <MapPin size={16} className="mr-2 text-morocco-terracotta" />
-                <span>123 Hassan II Avenue, Marrakech</span>
-              </div>
+              <motion.a 
+                href="tel:+1234567890" 
+                className="flex items-center text-foreground/70 hover:text-primary transition-colors"
+                whileHover={{ x: 5 }}
+              >
+                <Phone size={16} className="mr-2 text-primary" />
+                <span>+1 (234) 567-890</span>
+              </motion.a>
+              <motion.a 
+                href="mailto:contact@brightsmile.com" 
+                className="flex items-center text-foreground/70 hover:text-primary transition-colors"
+                whileHover={{ x: 5 }}
+              >
+                <Mail size={16} className="mr-2 text-primary" />
+                <span>contact@brightsmile.com</span>
+              </motion.a>
+              <motion.div 
+                className="flex items-center text-foreground/70"
+                whileHover={{ x: 5 }}
+              >
+                <MapPin size={16} className="mr-2 text-primary" />
+                <span>123 Dental Street, Smile City</span>
+              </motion.div>
             </div>
           </div>
           
           {/* Our Services */}
           <div className="flex flex-col">
             <motion.h3 
-              className="text-sm font-medium uppercase tracking-wider mb-4 text-morocco-teal"
+              className="text-sm font-medium uppercase tracking-wider mb-4 text-accent"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -65,59 +76,91 @@ const Footer = () => {
               Our Services
             </motion.h3>
             <div className="flex flex-col space-y-2">
-              <a href="/services#preventive" className="text-foreground/70 hover:text-morocco-terracotta transition-colors flex items-center">
-                <Shield size={14} className="mr-2 text-morocco-sand" />
+              <motion.a 
+                href="/services#preventive" 
+                className="text-foreground/70 hover:text-primary transition-colors flex items-center"
+                whileHover={{ x: 5 }}
+              >
+                <Shield size={14} className="mr-2 text-primary/70" />
                 Preventive Dentistry
-              </a>
-              <a href="/services#restorative" className="text-foreground/70 hover:text-morocco-terracotta transition-colors flex items-center">
-                <Shield size={14} className="mr-2 text-morocco-sand" />
+              </motion.a>
+              <motion.a 
+                href="/services#restorative" 
+                className="text-foreground/70 hover:text-primary transition-colors flex items-center"
+                whileHover={{ x: 5 }}
+              >
+                <Shield size={14} className="mr-2 text-primary/70" />
                 Restorative Dentistry
-              </a>
-              <a href="/services#cosmetic" className="text-foreground/70 hover:text-morocco-terracotta transition-colors flex items-center">
-                <Star size={14} className="mr-2 text-morocco-sand" />
+              </motion.a>
+              <motion.a 
+                href="/services#cosmetic" 
+                className="text-foreground/70 hover:text-primary transition-colors flex items-center"
+                whileHover={{ x: 5 }}
+              >
+                <Sparkles size={14} className="mr-2 text-primary/70" />
                 Cosmetic Dentistry
-              </a>
-              <a href="/services#specialized" className="text-foreground/70 hover:text-morocco-terracotta transition-colors flex items-center">
-                <Shield size={14} className="mr-2 text-morocco-sand" />
+              </motion.a>
+              <motion.a 
+                href="/services#specialized" 
+                className="text-foreground/70 hover:text-primary transition-colors flex items-center"
+                whileHover={{ x: 5 }}
+              >
+                <Shield size={14} className="mr-2 text-primary/70" />
                 Specialized Care
-              </a>
+              </motion.a>
             </div>
           </div>
           
-          {/* Quick Links */}
+          {/* Hours & Information */}
           <div className="flex flex-col">
             <motion.h3 
-              className="text-sm font-medium uppercase tracking-wider mb-4 text-morocco-teal"
+              className="text-sm font-medium uppercase tracking-wider mb-4 text-accent"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Quick Links
+              Office Hours
             </motion.h3>
             <div className="flex flex-col space-y-2">
-              <a href="/" className="text-foreground/70 hover:text-morocco-terracotta transition-colors">
-                Home
-              </a>
-              <a href="/about" className="text-foreground/70 hover:text-morocco-terracotta transition-colors">
-                About Us
-              </a>
-              <a href="/services" className="text-foreground/70 hover:text-morocco-terracotta transition-colors">
-                Services
-              </a>
-              <a href="/doctors" className="text-foreground/70 hover:text-morocco-terracotta transition-colors">
-                Our Dentists
-              </a>
-              <a href="/contact" className="text-foreground/70 hover:text-morocco-terracotta transition-colors">
-                Contact
-              </a>
+              <div className="flex items-center justify-between text-foreground/70">
+                <span className="flex items-center">
+                  <Clock size={14} className="mr-2 text-primary/70" />
+                  Monday - Friday
+                </span>
+                <span>8am - 6pm</span>
+              </div>
+              <div className="flex items-center justify-between text-foreground/70">
+                <span className="flex items-center">
+                  <Clock size={14} className="mr-2 text-primary/70" />
+                  Saturday
+                </span>
+                <span>9am - 3pm</span>
+              </div>
+              <div className="flex items-center justify-between text-foreground/70">
+                <span className="flex items-center">
+                  <Clock size={14} className="mr-2 text-primary/70" />
+                  Sunday
+                </span>
+                <span>Closed</span>
+              </div>
+              <div className="pt-2 mt-2 border-t border-primary/10">
+                <motion.a 
+                  href="/contact" 
+                  className="flex items-center text-accent hover:text-primary transition-colors"
+                  whileHover={{ x: 5 }}
+                >
+                  <Star size={14} className="mr-2" />
+                  Insurance Information
+                </motion.a>
+              </div>
             </div>
           </div>
           
           {/* Book Appointment */}
           <div className="flex flex-col md:col-span-3 lg:col-span-1">
             <motion.h3 
-              className="text-sm font-medium uppercase tracking-wider mb-4 text-morocco-teal"
+              className="text-sm font-medium uppercase tracking-wider mb-4 text-accent"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -126,7 +169,7 @@ const Footer = () => {
               Book Appointment
             </motion.h3>
             <p className="text-foreground/70 mb-4">
-              Ready for your dental visit? Schedule your appointment quickly and easily.
+              Ready for your dental checkup? Schedule your appointment quickly and easily.
             </p>
             <motion.div
               className="group"
@@ -135,7 +178,7 @@ const Footer = () => {
             >
               <a 
                 href="/contact" 
-                className="w-full px-4 py-3 bg-morocco-terracotta text-white rounded-lg font-medium inline-flex items-center justify-center hover:shadow-lg hover:shadow-morocco-terracotta/20 transition-all duration-300"
+                className="w-full px-4 py-3 bg-primary text-white rounded-lg font-medium inline-flex items-center justify-center hover:shadow-lg hover:shadow-primary/20 transition-all duration-300"
               >
                 <Calendar size={16} className="mr-2 group-hover:animate-pulse" />
                 Book Your Visit
@@ -146,7 +189,7 @@ const Footer = () => {
               <motion.div 
                 {...hoverProps1}
                 whileHover={{ y: -5 }}
-                className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-morocco-sand/20 flex items-center justify-center hover:bg-morocco-terracotta/10 hover:text-morocco-terracotta transition-colors"
+                className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 flex items-center justify-center hover:bg-primary/10 hover:text-primary transition-colors"
                 aria-label="Facebook"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -156,7 +199,7 @@ const Footer = () => {
               <motion.div 
                 {...hoverProps2}
                 whileHover={{ y: -5 }}
-                className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-morocco-sand/20 flex items-center justify-center hover:bg-morocco-terracotta/10 hover:text-morocco-terracotta transition-colors"
+                className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 flex items-center justify-center hover:bg-primary/10 hover:text-primary transition-colors"
                 aria-label="Instagram"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -168,7 +211,7 @@ const Footer = () => {
               <motion.div 
                 {...hoverProps3}
                 whileHover={{ y: -5 }}
-                className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-morocco-sand/20 flex items-center justify-center hover:bg-morocco-terracotta/10 hover:text-morocco-terracotta transition-colors"
+                className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 flex items-center justify-center hover:bg-primary/10 hover:text-primary transition-colors"
                 aria-label="Twitter"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -179,7 +222,7 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="mt-12 pt-6 border-t border-morocco-sand/20 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-12 pt-6 border-t border-primary/20 flex flex-col md:flex-row justify-between items-center">
           <motion.p 
             className="text-sm text-foreground/60 flex items-center"
             initial={{ opacity: 0 }}
@@ -187,14 +230,14 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <span className="mr-1">©</span> {currentYear} Moroccan Smile Dental Clinic. All rights reserved.
+            <span className="mr-1">©</span> {currentYear} BrightSmile Dental Clinic. All rights reserved.
           </motion.p>
           <div className="mt-4 md:mt-0 flex items-center space-x-4">
-            <a href="/privacy" className="text-sm text-foreground/60 hover:text-morocco-terracotta transition-colors">
+            <a href="/privacy" className="text-sm text-foreground/60 hover:text-primary transition-colors">
               Privacy Policy
             </a>
-            <span className="text-morocco-sand/40">|</span>
-            <a href="/terms" className="text-sm text-foreground/60 hover:text-morocco-terracotta transition-colors">
+            <span className="text-primary/40">|</span>
+            <a href="/terms" className="text-sm text-foreground/60 hover:text-primary transition-colors">
               Terms of Service
             </a>
           </div>

@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 
@@ -88,7 +87,7 @@ export const useFloatingAnimation = () => {
           'div',
           {
             key: i,
-            className: "absolute opacity-30 text-morocco-teal",
+            className: "absolute opacity-30 text-primary",
             style: {
               left: `${leftPosition}%`,
               top: `-${size}px`,
@@ -159,6 +158,92 @@ export const useResponsiveValue = <T,>(
   return value;
 };
 
+export const useDentalAnimations = () => {
+  // Animate element when it's visible in the viewport
+  const animateOnScroll = (element: HTMLElement, animation: string, delay: number = 0) => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              element.classList.add(animation);
+            }, delay);
+            observer.unobserve(element);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    observer.observe(element);
+    
+    return () => {
+      observer.unobserve(element);
+    };
+  };
+  
+  // Animate dental elements like teeth or dental tools
+  const createDentalParticles = (container: HTMLElement, count: number = 10) => {
+    for (let i = 0; i < count; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'absolute opacity-20 text-primary';
+      
+      // Random position, size and animation delay
+      const size = Math.random() * 20 + 10;
+      const left = Math.random() * 100;
+      const delay = Math.random() * 5;
+      const duration = Math.random() * 15 + 10;
+      
+      // Create shape (alternate between circle and tooth-like shape)
+      const isCircle = Math.random() > 0.5;
+      if (isCircle) {
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.borderRadius = '50%';
+        particle.style.background = 'currentColor';
+      } else {
+        // Create a simple square for tooth
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size * 1.2}px`;
+        particle.style.background = 'currentColor';
+        particle.style.borderRadius = '3px';
+      }
+      
+      particle.style.left = `${left}%`;
+      particle.style.top = `-${size}px`;
+      particle.style.animation = `floatUp ${duration}s linear ${delay}s infinite`;
+      particle.style.zIndex = '0';
+      
+      container.appendChild(particle);
+    }
+  };
+  
+  // Simulate a smile animation 
+  const animateSmile = (element: HTMLElement) => {
+    let progress = 0;
+    const duration = 1000; // 1 second
+    const start = performance.now();
+    
+    const animate = (time: number) => {
+      progress = (time - start) / duration;
+      if (progress > 1) progress = 1;
+      
+      // Create a smile curve using CSS transform
+      const curve = progress * 10; // Max curve of 10px
+      element.style.transform = `scaleX(${1 + progress * 0.1}) rotate(${progress * 5}deg)`;
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  };
+  
+  return { animateOnScroll, createDentalParticles, animateSmile };
+};
+
+// Keep the original Moroccan animations for backward compatibility
 export const useMorrocanAnimations = () => {
   const animateOnScroll = (element: HTMLElement, animation: string, delay: number = 0) => {
     const observer = new IntersectionObserver(
