@@ -70,7 +70,6 @@ const Navigation = () => {
               <Stethoscope className="mr-2 text-primary h-6 w-6" />
               BrightSmile
             </motion.span>
-            <span className="text-sm ml-1">Dental</span>
           </NavLink>
 
           {/* Desktop Navigation */}
@@ -132,7 +131,7 @@ const Navigation = () => {
             
             {/* Sidebar menu */}
             <motion.div 
-              className="absolute top-0 right-0 h-full w-3/4 max-w-xs bg-card shadow-xl border-l border-border flex flex-col"
+              className="absolute top-0 right-0 w-3/4 max-w-xs bg-card shadow-xl border-l border-border flex flex-col !h-[100vh]"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}

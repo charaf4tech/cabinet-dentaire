@@ -6,7 +6,7 @@ import { Mail, MapPin, Phone, Clock } from 'lucide-react';
 const Contact = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation(0.2);
   const { ref: contactInfoRef, isVisible: contactInfoVisible } = useScrollAnimation(0.2);
-  
+
   const contactInfo = [
     {
       icon: Mail,
@@ -40,12 +40,11 @@ const Contact = () => {
       <section className="py-20 md:py-32 bg-secondary overflow-hidden relative">
         <div className="absolute top-1/4 left-1/3 w-64 h-64 rounded-full bg-primary/5 animate-pulse-light blur-3xl"></div>
         <div className="absolute bottom-1/4 right-1/3 w-80 h-80 rounded-full bg-blue-400/5 animate-pulse-light blur-3xl"></div>
-        
-        <div 
+
+        <div
           ref={headerRef}
-          className={`container mx-auto px-4 md:px-6 relative z-10 transition-all duration-1000 ease-out ${
-            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
+          className={`container mx-auto px-4 md:px-6 relative z-10 transition-all duration-1000 ease-out ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            }`}
         >
           <div className="max-w-3xl mx-auto text-center">
             <span className="px-3 py-1 text-sm font-medium text-primary-foreground bg-primary rounded-full mb-6 inline-block">Book Your Visit</span>
@@ -58,20 +57,19 @@ const Contact = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Contact Info */}
       <section className="py-16">
-        <div 
+        <div
           ref={contactInfoRef}
-          className={`container mx-auto px-4 md:px-6 transition-all duration-1000 ease-out ${
-            contactInfoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
+          className={`container mx-auto px-4 md:px-6 transition-all duration-1000 ease-out ${contactInfoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            }`}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {contactInfo.map((item, index) => {
               const Icon = item.icon;
               return (
-                <a 
+                <a
                   key={index}
                   href={item.link}
                   className="glass-card p-6 rounded-xl text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-primary/5"
@@ -87,7 +85,7 @@ const Contact = () => {
               );
             })}
           </div>
-          
+
           {/* Emergency Info */}
           <div className="max-w-3xl mx-auto mb-16">
             <div className="bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30 p-6 rounded-xl">
@@ -105,7 +103,7 @@ const Contact = () => {
               </p>
             </div>
           </div>
-          
+
           {/* Contact Form Section */}
           <div className="max-w-3xl mx-auto">
             <div className="glass-card p-8 md:p-12 rounded-xl">
@@ -115,17 +113,21 @@ const Contact = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Map Section */}
       <section className="py-16">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl md:text-3xl font-display font-bold mb-8 text-center">Find Our Office</h2>
+          <h2 className="text-2xl md:text-3xl font-display font-bold mb-8 text-center">
+            Find Our Office
+          </h2>
           <div className="h-[400px] rounded-xl overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2333&q=80" 
-              alt="Dental Office Location Map" 
-              className="w-full h-full object-cover"
-            />
+            <iframe
+              className="w-full h-full border-0"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345095774!2d144.9556513159046!3d-37.81732774201432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5df4f9f1fb%3A0x2f8f1e7d4c5a1a3!2sYour%20Office!5e0!3m2!1sen!2sus!4v1614035559921!5m2!1sen!2sus"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
       </section>
