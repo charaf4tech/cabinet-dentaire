@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X, Tooth } from 'lucide-react';
+import { Menu, X, Stethoscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
 
@@ -67,7 +67,7 @@ const Navigation = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
-              <Tooth className="mr-2 text-primary h-6 w-6" />
+              <Stethoscope className="mr-2 text-primary h-6 w-6" />
               BrightSmile
             </motion.span>
             <span className="text-sm ml-1">Dental</span>
