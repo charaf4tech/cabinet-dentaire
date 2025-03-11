@@ -1,5 +1,6 @@
 
 import { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 export const useScrollAnimation = (threshold = 0.1) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -73,7 +74,7 @@ export const useFloatingAnimation = () => {
   const [floatingElements, setFloatingElements] = useState<JSX.Element[]>([]);
   
   const generateFloatingElements = (count: number, IconComponent: React.ComponentType<any>) => {
-    const elements = [];
+    const elements: JSX.Element[] = [];
     
     for (let i = 0; i < count; i++) {
       const size = Math.random() * 20 + 10; // Random size between 10-30px
@@ -81,19 +82,22 @@ export const useFloatingAnimation = () => {
       const duration = Math.random() * 10 + 10; // Random duration between 10-20s
       const leftPosition = Math.random() * 100; // Random left position 0-100%
       
+      // Create element using React.createElement instead of JSX
       elements.push(
-        <div
-          key={i}
-          className="absolute opacity-30 text-morocco-teal"
-          style={{
-            left: `${leftPosition}%`,
-            top: `-${size}px`,
-            animation: `floatUp ${duration}s linear ${delay}s infinite`,
-            zIndex: 0,
-          }}
-        >
-          <IconComponent size={size} />
-        </div>
+        React.createElement(
+          'div',
+          {
+            key: i,
+            className: "absolute opacity-30 text-morocco-teal",
+            style: {
+              left: `${leftPosition}%`,
+              top: `-${size}px`,
+              animation: `floatUp ${duration}s linear ${delay}s infinite`,
+              zIndex: 0,
+            }
+          },
+          React.createElement(IconComponent, { size })
+        )
       );
     }
     
