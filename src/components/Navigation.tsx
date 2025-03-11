@@ -21,10 +21,9 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when navigation happens
+  // Prevent scrolling when menu is open
   useEffect(() => {
     if (isMenuOpen) {
-      // Prevent scrolling when menu is open
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -44,6 +43,7 @@ const Navigation = () => {
   ];
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header 
@@ -59,7 +59,7 @@ const Navigation = () => {
             to="/" 
             className="text-2xl font-display font-medium tracking-tight"
             aria-label="Home"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={closeMenu}
           >
             <motion.span 
               className="text-gradient flex items-center"
@@ -110,56 +110,90 @@ const Navigation = () => {
               aria-label="Toggle menu"
               whileTap={{ scale: 0.9 }}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              <Menu size={24} />
             </motion.button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Sidebar Style */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
-            className="md:hidden fixed inset-0 bg-background/95 backdrop-blur-lg z-40"
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="md:hidden fixed inset-0 bg-background/95 backdrop-blur-lg z-40 flex"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <div className="flex flex-col h-full justify-center items-center space-y-8 p-6">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.path}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.1 }}
+            {/* Left darkened area - clicking here closes the menu */}
+            <motion.div 
+              className="flex-grow"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeMenu}
+            />
+            
+            {/* Sliding sidebar menu */}
+            <motion.div 
+              className="w-4/5 max-w-xs h-full bg-card shadow-xl border-l border-border p-6 flex flex-col"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            >
+              {/* Close button */}
+              <div className="flex justify-end mb-8">
+                <motion.button
+                  onClick={closeMenu}
+                  className="p-2 rounded-full text-foreground hover:bg-muted transition-colors"
+                  whileTap={{ scale: 0.9 }}
+                  aria-label="Close menu"
                 >
-                  <NavLink
-                    to={link.path}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={({ isActive }) => `
-                      text-2xl font-medium transition-colors duration-200
-                      ${isActive ? 'text-primary' : 'text-foreground/80 hover:text-primary'}
-                    `}
+                  <X size={24} />
+                </motion.button>
+              </div>
+              
+              {/* Menu content */}
+              <div className="flex flex-col space-y-6">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
                   >
-                    {link.name}
-                  </NavLink>
-                </motion.div>
-              ))}
+                    <NavLink
+                      to={link.path}
+                      onClick={closeMenu}
+                      className={({ isActive }) => `
+                        text-xl font-medium transition-colors duration-200 flex items-center
+                        ${isActive ? 'text-primary' : 'text-foreground/80 hover:text-primary'}
+                      `}
+                    >
+                      {link.name}
+                    </NavLink>
+                  </motion.div>
+                ))}
+              </div>
+              
+              {/* Book now button */}
               <motion.div
+                className="mt-auto pt-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.1 + 0.2 }}
               >
                 <a
                   href="/contact"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="px-6 py-3 bg-primary text-white rounded-full text-lg font-medium transition-colors hover:bg-primary/90 mt-4 inline-block"
+                  onClick={closeMenu}
+                  className="px-6 py-3 bg-primary text-white rounded-full text-lg font-medium transition-colors hover:bg-primary/90 w-full flex justify-center items-center"
                 >
                   Book Now
                 </a>
               </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
