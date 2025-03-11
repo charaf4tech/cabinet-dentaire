@@ -154,3 +154,29 @@ export const useResponsiveValue = <T,>(
   
   return value;
 };
+
+export const useMorrocanAnimations = () => {
+  const animateOnScroll = (element: HTMLElement, animation: string, delay: number = 0) => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              element.classList.add(animation);
+            }, delay);
+            observer.unobserve(element);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    observer.observe(element);
+    
+    return () => {
+      observer.unobserve(element);
+    };
+  };
+  
+  return { animateOnScroll };
+};
