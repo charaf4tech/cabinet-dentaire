@@ -1,5 +1,7 @@
 
+# robots.txt for brightsmile.com
 User-agent: *
 Allow: /
 
+# Tell search engines where to find the sitemap
 Sitemap: https://brightsmile.com/sitemap.xml
