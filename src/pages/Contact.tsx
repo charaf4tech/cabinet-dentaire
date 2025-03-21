@@ -1,7 +1,7 @@
-
 import ContactForm from '@/components/ContactForm';
 import { useScrollAnimation } from '@/utils/animations';
 import { Mail, MapPin, Phone, Clock } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 const Contact = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation(0.2);
@@ -34,8 +34,59 @@ const Contact = () => {
     }
   ];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "BrightSmile Dental",
+    "url": "https://brightsmile.com/contact",
+    "telephone": "+15551234567",
+    "email": "appointments@brightsmile.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Dental Ave",
+      "addressLocality": "San Francisco",
+      "addressRegion": "CA",
+      "postalCode": "94103",
+      "addressCountry": "US"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "09:00",
+        "closes": "14:00"
+      }
+    ],
+    "hasMap": "https://maps.google.com",
+    "emergencyService": {
+      "@type": "MedicalService",
+      "availableService": "Emergency Dental Care",
+      "telephone": "+15551239999"
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen pt-20">
+      <Helmet>
+        <title>Contact BrightSmile Dental | Schedule Your Appointment</title>
+        <meta name="description" content="Contact BrightSmile Dental to schedule your appointment. Call us at +1 (555) 123-4567 or visit our office at 123 Dental Ave, San Francisco, CA." />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+
       {/* Hero */}
       <section className="py-20 md:py-32 bg-secondary overflow-hidden relative">
         <div className="absolute top-1/4 left-1/3 w-64 h-64 rounded-full bg-primary/5 animate-pulse-light blur-3xl"></div>

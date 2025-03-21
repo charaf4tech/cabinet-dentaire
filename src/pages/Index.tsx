@@ -2,6 +2,7 @@ import Hero from '@/components/Hero';
 import { useScrollAnimation } from '@/utils/animations';
 import { ArrowRight, Activity, Shield, Clock, Award, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet';
 
 const Index = () => {
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation(0.2);
@@ -52,8 +53,65 @@ const Index = () => {
     }
   ];
   
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "BrightSmile Dental",
+    "image": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop",
+    "url": "https://brightsmile.com",
+    "telephone": "+15551234567",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Dental Ave",
+      "addressLocality": "San Francisco",
+      "addressRegion": "CA",
+      "postalCode": "94103",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 37.7749,
+      "longitude": -122.4194
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "09:00",
+        "closes": "14:00"
+      }
+    ],
+    "priceRange": "$$",
+    "servesCuisine": "Dental Services",
+    "sameAs": [
+      "https://www.facebook.com/brightsmile",
+      "https://www.instagram.com/brightsmile",
+      "https://twitter.com/brightsmile"
+    ]
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
+      <Helmet>
+        <title>BrightSmile Dental | Professional Dental Care in San Francisco</title>
+        <meta name="description" content="BrightSmile Dental provides comprehensive dental care for the whole family in San Francisco. Schedule your appointment today!" />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+      
       <Hero />
       
       {/* Stats Section */}
