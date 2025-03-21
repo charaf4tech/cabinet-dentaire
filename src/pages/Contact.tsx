@@ -1,3 +1,4 @@
+
 import ContactForm from '@/components/ContactForm';
 import { useScrollAnimation } from '@/utils/animations';
 import { Mail, MapPin, Phone, Clock } from 'lucide-react';
@@ -41,6 +42,8 @@ const Contact = () => {
     "url": "https://brightsmile.com/contact",
     "telephone": "+15551234567",
     "email": "appointments@brightsmile.com",
+    "image": "https://brightsmile.com/og-image.png",
+    "description": "BrightSmile Dental provides comprehensive dental care for the whole family in San Francisco. Schedule your appointment today!",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "123 Dental Ave",
@@ -48,6 +51,11 @@ const Contact = () => {
       "addressRegion": "CA",
       "postalCode": "94103",
       "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 37.7749,
+      "longitude": -122.4194
     },
     "openingHoursSpecification": [
       {
@@ -70,11 +78,23 @@ const Contact = () => {
       }
     ],
     "hasMap": "https://maps.google.com",
+    "priceRange": "$$",
+    "sameAs": [
+      "https://www.facebook.com/brightsmile",
+      "https://www.instagram.com/brightsmile",
+      "https://twitter.com/brightsmile"
+    ],
     "emergencyService": {
       "@type": "MedicalService",
       "availableService": "Emergency Dental Care",
       "telephone": "+15551239999"
-    }
+    },
+    "medicalSpecialty": [
+      "General Dentistry",
+      "Cosmetic Dentistry",
+      "Orthodontics",
+      "Dental Implants"
+    ]
   };
 
   return (
@@ -82,6 +102,8 @@ const Contact = () => {
       <Helmet>
         <title>Contact BrightSmile Dental | Schedule Your Appointment</title>
         <meta name="description" content="Contact BrightSmile Dental to schedule your appointment. Call us at +1 (555) 123-4567 or visit our office at 123 Dental Ave, San Francisco, CA." />
+        <meta name="keywords" content="dental appointment, contact dentist, schedule dental visit, San Francisco dentist" />
+        <link rel="canonical" href="https://brightsmile.com/contact" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
