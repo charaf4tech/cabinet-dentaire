@@ -17,7 +17,7 @@ const PAGES = [
 ];
 
 /**
- * Send a ping to Google to request indexing of a specific URL
+ * Send a ping to Google to request indexing of a specific URL using fetch instead of iframes
  * @param {string} url - The URL to be indexed
  */
 function pingGoogle(url) {
@@ -26,18 +26,18 @@ function pingGoogle(url) {
   // Log the indexing request
   console.log(`Requesting indexing for: ${fullUrl}`);
   
-  // Create a hidden iframe to send the request
-  const iframe = document.createElement('iframe');
-  iframe.style.display = 'none';
-  iframe.src = `https://www.google.com/ping?sitemap=${encodeURIComponent(fullUrl)}`;
-  
-  // Add the iframe to DOM temporarily and remove after loading
-  document.body.appendChild(iframe);
-  iframe.onload = () => {
-    setTimeout(() => {
-      document.body.removeChild(iframe);
-    }, 1000);
-  };
+  // Use fetch API instead of iframes to avoid CSP issues
+  // Note: We're using no-cors mode to prevent CORS errors
+  fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent(fullUrl)}`, {
+    mode: 'no-cors',
+    method: 'GET',
+  })
+  .then(() => {
+    console.log(`Successfully sent ping request for: ${fullUrl}`);
+  })
+  .catch(error => {
+    console.error(`Error pinging Google for ${fullUrl}:`, error);
+  });
 }
 
 /**
@@ -46,17 +46,17 @@ function pingGoogle(url) {
 function pingSitemap() {
   console.log(`Requesting indexing for sitemap: ${SITEMAP_URL}`);
   
-  // Ping Google with the sitemap URL
-  const iframe = document.createElement('iframe');
-  iframe.style.display = 'none';
-  iframe.src = `https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`;
-  
-  document.body.appendChild(iframe);
-  iframe.onload = () => {
-    setTimeout(() => {
-      document.body.removeChild(iframe);
-    }, 1000);
-  };
+  // Use fetch API instead of iframes
+  fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`, {
+    mode: 'no-cors',
+    method: 'GET',
+  })
+  .then(() => {
+    console.log(`Successfully sent ping request for sitemap`);
+  })
+  .catch(error => {
+    console.error('Error pinging Google for sitemap:', error);
+  });
 }
 
 /**
@@ -74,24 +74,38 @@ function processPages() {
   });
 }
 
-// Initialize the indexing process
-processPages();
-
-// Set up daily scheduling if the script is running in a browser context
-if (typeof window !== 'undefined') {
-  // Store the last run timestamp in localStorage
-  const lastRunKey = 'lastIndexingRun';
-  const now = new Date().getTime();
-  const lastRun = parseInt(localStorage.getItem(lastRunKey) || '0');
-  const dayInMs = 24 * 60 * 60 * 1000;
-  
-  // If it's been more than a day since the last run, run again
-  if (now - lastRun >= dayInMs) {
-    processPages();
-    localStorage.setItem(lastRunKey, now.toString());
-    console.log('Indexing process completed. Next run scheduled in 24 hours.');
-  } else {
-    const nextRun = new Date(lastRun + dayInMs);
-    console.log(`Next indexing run scheduled for: ${nextRun.toLocaleString()}`);
+/**
+ * Safe console log that doesn't break if console is not available
+ */
+function safeLog(message) {
+  if (typeof console !== 'undefined' && console.log) {
+    console.log(message);
   }
+}
+
+// Initialize the indexing process with error handling
+try {
+  // Set up daily scheduling if the script is running in a browser context
+  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    // Store the last run timestamp in localStorage
+    const lastRunKey = 'lastIndexingRun';
+    const now = new Date().getTime();
+    const lastRun = parseInt(localStorage.getItem(lastRunKey) || '0');
+    const dayInMs = 24 * 60 * 60 * 1000;
+    
+    // If it's been more than a day since the last run, run again
+    if (now - lastRun >= dayInMs) {
+      processPages();
+      localStorage.setItem(lastRunKey, now.toString());
+      safeLog('Indexing process completed. Next run scheduled in 24 hours.');
+    } else {
+      const nextRun = new Date(lastRun + dayInMs);
+      safeLog(`Next indexing run scheduled for: ${nextRun.toLocaleString()}`);
+    }
+  } else {
+    // If localStorage is not available, just run the process
+    processPages();
+  }
+} catch (error) {
+  console.error('Error in indexing script:', error);
 }
