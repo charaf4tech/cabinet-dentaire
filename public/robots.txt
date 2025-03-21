@@ -1,7 +1,7 @@
 
-# robots.txt for brightsmile.com
+# robots.txt for cabinet-dentaire-4tech.vercel.app
 User-agent: *
 Allow: /
 
 # Tell search engines where to find the sitemap
-Sitemap: https://brightsmile.com/sitemap.xml
+Sitemap: https://cabinet-dentaire-4tech.vercel.app/sitemap.xml

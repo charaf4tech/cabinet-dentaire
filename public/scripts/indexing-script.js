@@ -5,7 +5,7 @@
  */
 
 // Configuration
-const SITE_URL = 'https://brightsmile.com';
+const SITE_URL = 'https://cabinet-dentaire-4tech.vercel.app';
 const SITEMAP_URL = `${SITE_URL}/sitemap.xml`;
 const PAGES = [
   '/',

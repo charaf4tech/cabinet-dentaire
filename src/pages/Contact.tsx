@@ -39,10 +39,10 @@ const Contact = () => {
     "@context": "https://schema.org",
     "@type": "Dentist",
     "name": "BrightSmile Dental",
-    "url": "https://brightsmile.com/contact",
+    "url": "https://cabinet-dentaire-4tech.vercel.app/contact",
     "telephone": "+15551234567",
     "email": "appointments@brightsmile.com",
-    "image": "https://brightsmile.com/og-image.png",
+    "image": "https://cabinet-dentaire-4tech.vercel.app/og-image.png",
     "description": "BrightSmile Dental provides comprehensive dental care for the whole family in San Francisco. Schedule your appointment today!",
     "address": {
       "@type": "PostalAddress",
